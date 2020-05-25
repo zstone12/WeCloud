@@ -21,6 +21,7 @@ class Test(APIView):
         data=User.objects.all()
         data=UserSerializer(data,many=True)
         response.data=data.data
+        yrdy=2
         response.code=200
         response.msg="查询成功"
         return JsonResponse(response.dict)

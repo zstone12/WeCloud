@@ -11,3 +11,4 @@ class User(models.Model):
     size=models.BigIntegerField(max_length=11,null=True)
     class Meta:
         db_table = "user"
+
