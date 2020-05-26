@@ -16,13 +16,13 @@ class User(models.Model):
 
 
 class Img(models.Model):
-    file_id=models.IntegerField(primary_key=True,null=False)
-    filename=models.CharField(max_length=255,null=True)
-    type=models.CharField(max_length=20,null=True)
-    size=models.BigIntegerField(max_length=11,null=True)
-    date=models.DateField(max_length=20,null=True)
-    path=models.CharField(max_length=255,null=True)
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    file_id = models.IntegerField(primary_key=True, null=False)
+    filename = models.CharField(max_length=255, null=True)
+    type = models.CharField(max_length=20, null=True)
+    size = models.BigIntegerField(max_length=11, null=True)
+    date = models.DateField(max_length=20, null=True)
+    path = models.CharField(max_length=255, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "img"
@@ -36,7 +36,7 @@ class Coffer(models.Model):
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
 
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "coffer"
@@ -48,8 +48,8 @@ class Note(models.Model):
     content = models.CharField(max_length=255, null=True)
     date = models.DateField(max_length=20, null=True)
 
-    display = models.IntegerField(max_length=11,null=True)
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    display = models.IntegerField(max_length=11, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "note"
@@ -63,7 +63,7 @@ class Radio(models.Model):
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
 
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "radio"
@@ -77,7 +77,7 @@ class Trash(models.Model):
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
 
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "trash"
@@ -90,7 +90,7 @@ class Doc(models.Model):
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=20, null=True)
 
-    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "doc"
@@ -103,12 +103,13 @@ class Video(models.Model):
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:
         db_table = "video"
 
     user= models.ForeignKey(User, on_delete=models.CASCADE)
 
-    class Meta:
-        db_table = "doc"
 
+    class Meta:
+        db_table = "video"
