@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from api.serializers import  *
 from api.models import  *
 import hashlib
-
+from collections import OrderedDict
 def md5(str):
     m1 = hashlib.md5()
     m1.update(str.encode(encoding='UTF-8'))
@@ -95,10 +95,12 @@ class Login(APIView):
          response = BaseResponse()
          username = request.data.get('username')
          password = request.data.get('password')
-         user = User.objects.filter(username=username, password=md5(password))
+         user = User.objects.get(username=username, password=md5(password))
+         userid=user.user_id
+         print(user)
          if user:
              request.session['login'] = True
-             request.session['username']=username
+             request.session['userid']=user.user_id
              response.msg = "ok"
              response.data = "null"
          else:
@@ -116,9 +118,8 @@ class IsLog(APIView):
             login=request.session['login']
 
             if login:
-                username=request.session['username']
-                print(username)
-                user=User.objects.get(username=username)
+                userid=request.session['userid']
+                user=User.objects.get(user_id=userid)
                 img_size = user.img_set.count()
                 radio_size= user.radio_set.count()
                 doc_size= user.doc_set.count()
@@ -151,7 +152,7 @@ class OutLogin(APIView):
             response = BaseResponse()
             try:
                 del request.session['login']
-                del request.session['username']
+                del request.session['userid']
                 response.code = "200"
                 response.msg = "yes"
                 response.data = "null"
@@ -166,9 +167,9 @@ class CheckPassword(APIView):
     def get(self,request):
         response = BaseResponse()
         try:
-            username = request.session['username']
+            userid = request.session['userid']
             password = request.query_params.dict()["password"]
-            user = User.objects.filter(username=username, password=md5(password))
+            user = User.objects.filter(user_id=userid, password=md5(password))
             if user:
                 response.code = "200"
                 response.msg = "ok"
@@ -181,6 +182,70 @@ class CheckPassword(APIView):
                 return JsonResponse(response.dict)
 
         except:
+              response.code = "201"
+              response.msg = "no"
+              response.data = "null"
+              return JsonResponse(response.dict)
+
+
+class GetFile(APIView):
+    def get(self,request):
+        response = BaseResponse()
+        try:
+
+            userid = request.session['userid']
+            data = []
+            if userid:
+                type = request.query_params.dict()["type"]
+                if type=="img":
+                    img_list=Img.objects.filter(user_id=userid)
+                    img_list=ImgSerializer(img_list,many=True)
+                    data.append(img_list.data)
+                    response.data=data
+                elif type=="doc":
+                    doc_list=Doc.objects.filter(user_id=userid)
+                    doc_list=DocSerializer(doc_list,many=True)
+                    data.append(doc_list.data)
+                    response.data=data
+                elif type=="radio":
+                    radio_list=Radio.objects.filter(user_id=userid)
+                    radio_list=RadioSerializer(radio_list,many=True)
+                    data.append(radio_list.data)
+                    response.data=data
+                elif type=="video":
+                    video_list=Video.objects.filter(user_id=userid)
+                    video_list=VideoSerializer(video_list,many=True)
+                    data.append(video_list.data)
+                    response.data=data
+                elif type=="all":
+                    img_list=Img.objects.filter(user_id=userid)
+                    doc_list = Doc.objects.filter(user_id=userid)
+                    radio_list = Radio.objects.filter(user_id=userid)
+                    video_list = Video.objects.filter(user_id=userid)
+
+                    img_list=ImgSerializer(img_list,many=True)
+                    doc_list=DocSerializer(doc_list,many=True)
+                    radio_list=RadioSerializer(radio_list,many=True)
+                    video_list=VideoSerializer(video_list,many=True)
+                    data.append(img_list.data)
+                    data.append(doc_list.data)
+                    data.append(radio_list.data)
+                    data.append(video_list.data)
+                    if all=={}:
+                        response.data = "null"
+                    else:
+                        response.data = data
+
+                elif type=="trash":
+                    trash_list=Trash.objects.filter(user_id=userid)
+                    trash_list=TrashSerializer(trash_list,many=True)
+                    data.append(trash_list.data)
+                    response.data=data
+                response.code = "200"
+                response.msg = "ok"
+                return JsonResponse(response.dict)
+        except Exception as e:
+              print(e)
               response.code = "201"
               response.msg = "no"
               response.data = "null"
