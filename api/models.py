@@ -92,7 +92,7 @@ class Doc(models.Model):
 
     user=models.ForeignKey(User,on_delete=models.CASCADE)
 
--
+    class Meta:
         db_table = "doc"
 
 
