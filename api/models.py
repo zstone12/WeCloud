@@ -16,77 +16,99 @@ class User(models.Model):
 
 
 class Img(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
-    filename = models.CharField(max_length=255, null=True)
-    type = models.CharField(max_length=20, null=True)
-    size = models.BigIntegerField(max_length=11, null=True)
-    date = models.DateField(max_length=20, null=True)
-    path = models.CharField(max_length=255, null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
+    file_id=models.IntegerField(primary_key=True,null=False)
+    filename=models.CharField(max_length=255,null=True)
+    type=models.CharField(max_length=20,null=True)
+    size=models.BigIntegerField(max_length=11,null=True)
+    date=models.DateField(max_length=20,null=True)
+    path=models.CharField(max_length=255,null=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 
     class Meta:
         db_table = "img"
 
 
-class Coffer:
+class Coffer(models.Model):
     file_id = models.IntegerField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
+
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 
     class Meta:
         db_table = "coffer"
 
 
-class Note:
+class Note(models.Model):
     file_id = models.IntegerField(primary_key=True, null=False)
     title = models.CharField(max_length=255, null=True)
     content = models.CharField(max_length=255, null=True)
     date = models.DateField(max_length=20, null=True)
-    display = models.IntegerField(max_length=11, null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
+
+    display = models.IntegerField(max_length=11,null=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 
     class Meta:
         db_table = "note"
 
 
-class Radio:
+class Radio(models.Model):
     file_id = models.IntegerField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
+
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 
     class Meta:
         db_table = "radio"
 
 
-class Trash:
+class Trash(models.Model):
     file_id = models.IntegerField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
+
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 
     class Meta:
         db_table = "trash"
 
 
-class Doc:
+class Doc(models.Model):
+    file_id = models.IntegerField(primary_key=True, null=False)
+    filename = models.CharField(max_length=255, null=True)
+    type = models.CharField(max_length=20, null=True)
+    size = models.BigIntegerField(max_length=11, null=True)
+    date = models.DateField(max_length=20, null=True)
+
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+
+-
+        db_table = "doc"
+
+
+class Video(models.Model):
     file_id = models.IntegerField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    class Meta:
+        db_table = "video"
+
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
 
     class Meta:
         db_table = "doc"
+

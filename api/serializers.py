@@ -43,3 +43,9 @@ class CofferSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Coffer
         fields = '__all__'
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Video
+        fields = '__all__'
