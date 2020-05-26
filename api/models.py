@@ -107,7 +107,7 @@ class Video(models.Model):
     class Meta:
         db_table = "video"
 
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "doc"
