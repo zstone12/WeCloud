@@ -250,3 +250,5 @@ class GetFile(APIView):
               response.msg = "no"
               response.data = "null"
               return JsonResponse(response.dict)
+
+
