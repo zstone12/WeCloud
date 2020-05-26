@@ -103,7 +103,13 @@ class Video(models.Model):
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=20, null=True)
     path = models.CharField(max_length=255, null=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, max_length=11, null=False)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    class Meta:
+        db_table = "video"
+
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     class Meta:
         db_table = "video"

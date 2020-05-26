@@ -252,3 +252,111 @@ class GetFile(APIView):
               return JsonResponse(response.dict)
 
 
+class GetNodeList:
+    def get(self,request):
+        response = BaseResponse()
+        try:
+            userid = request.session['userid']
+            if userid:
+                note_list=Note.objects.filter(user_id=userid)
+                data=NoteSerializer(note_list,many=True).data
+                response.code = "200"
+                response.msg = "yes"
+                response.data = data
+
+            else:
+                response.code = "201"
+                response.msg = "no"
+                response.data = "null"
+        except:
+            response.code = "201"
+            response.msg = "no"
+            response.data = "null"
+        return JsonResponse(response.dict)
+
+
+class GetNode:
+    def get(self,request):
+        response = BaseResponse()
+        try:
+            file_id=request.query_params.dict()['file_id']
+            userid = request.session['userid']
+            if userid:
+                note=Note.objects.get(user_id=userid,file_id=file_id)
+                data=NoteSerializer(note).data
+                response.code = "200"
+                response.msg = "yes"
+                response.data = data
+
+            else:
+                response.code = "201"
+                response.msg = "no"
+                response.data = "null"
+        except:
+            response.code = "201"
+            response.msg = "no"
+            response.data = "null"
+        return JsonResponse(response.dict)
+
+
+class DelNode:
+    def get(self,request):
+        response = BaseResponse()
+        try:
+            file_id=request.query_params.dict()['file_id']
+            userid = request.session['userid']
+            if userid:
+                Note.objects.get(user_id=userid,file_id=file_id).delete()
+                note_list=Note.objects.all()
+                data=NoteSerializer(note_list,many=True).data
+                response.code = "200"
+                response.msg = "yes"
+                response.data = data
+
+            else:
+                response.code = "201"
+                response.msg = "no"
+                response.data = "null"
+        except:
+            response.code = "201"
+            response.msg = "no"
+            response.data = "null"
+        return JsonResponse(response.dict)
+
+
+class InsertNode:
+    def post(self,request):
+        response = BaseResponse()
+        try:
+            file_id=request.query_params.dict()['file_id']
+            userid = request.session['userid']
+            if userid:
+                title=request.POST.get("title")
+                content=request.POST.get("content")
+                date=request.POST.get('date')
+                data=Note.objects.get(user_id=userid,file_id=file_id)
+                data.title=title
+                data.content=content
+                data.date=date
+                data.save()
+                note_list=Note.objects.all()
+                data=NoteSerializer(note_list,many=True).data
+                response.code = "200"
+                response.msg = "yes"
+                response.data = data
+
+            else:
+                title = request.POST.get("title")
+                content = request.POST.get("content")
+                date = request.POST.get('date')
+                Note.objects.create(title=title,content=content,date=date,user_id=userid)
+                note_list = Note.objects.all()
+                data = NoteSerializer(note_list, many=True).data
+                response.code = "200"
+                response.msg = "yes"
+                response.data = data
+        except:
+            response.code = "201"
+            response.msg = "no"
+            response.data = "null"
+        return JsonResponse(response.dict)
