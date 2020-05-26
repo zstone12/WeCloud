@@ -79,9 +79,9 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'xuptwecloud',
-        'HOST': 'localhost',
+        'HOST': '129.204.185.247',
         'USER': 'root',
-        'PASSWORD': 'yuchen125',
+        'PASSWORD': 'erp2019/10/02',
         'PORT': '3306',
     }
 }
