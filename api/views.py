@@ -56,7 +56,7 @@ class CheckUsername(APIView):
 class CheckEmail(APIView):
     def get(self,request):
         response = BaseResponse()
-        email = request.data.get('email')
+        email = request.query_params.dict()["email"]
         try:
             user = User.objects.get(email=email)
             response.code = "200"
