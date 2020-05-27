@@ -5,7 +5,7 @@ from django.db import models
 
 
 class User(models.Model):
-    user_id = models.IntegerField(primary_key=True, null=False)
+    user_id = models.AutoField(primary_key=True, null=False)
     username = models.CharField(max_length=50, null=True)
     password = models.CharField(max_length=50, null=True)
     email = models.CharField(max_length=50, null=True)
@@ -16,7 +16,7 @@ class User(models.Model):
 
 
 class Img(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
+    file_id = models.AutoField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
@@ -29,7 +29,7 @@ class Img(models.Model):
 
 
 class Coffer(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
+    file_id = models.AutoField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
@@ -43,7 +43,7 @@ class Coffer(models.Model):
 
 
 class Note(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
+    file_id = models.AutoField(primary_key=True, null=False)
     title = models.CharField(max_length=255, null=True)
     content = models.CharField(max_length=255, null=True)
     date = models.DateField(max_length=20, null=True)
@@ -56,7 +56,7 @@ class Note(models.Model):
 
 
 class Radio(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
+    file_id = models.AutoField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
@@ -70,7 +70,7 @@ class Radio(models.Model):
 
 
 class Trash(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
+    file_id = models.AutoField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
@@ -84,7 +84,7 @@ class Trash(models.Model):
 
 
 class Doc(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
+    file_id = models.AutoField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
@@ -97,7 +97,7 @@ class Doc(models.Model):
 
 
 class Video(models.Model):
-    file_id = models.IntegerField(primary_key=True, null=False)
+    file_id = models.AutoField(primary_key=True, null=False)
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
@@ -108,8 +108,4 @@ class Video(models.Model):
     class Meta:
         db_table = "video"
 
-    # user= models.ForeignKey(User, on_delete=models.CASCADE)
-    #
-    #
-    # class Meta:
-    #     db_table = "video"
+
