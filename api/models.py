@@ -108,8 +108,8 @@ class Video(models.Model):
     class Meta:
         db_table = "video"
 
-    user= models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-    class Meta:
-        db_table = "video"
+    # user= models.ForeignKey(User, on_delete=models.CASCADE)
+    #
+    #
+    # class Meta:
+    #     db_table = "video"
