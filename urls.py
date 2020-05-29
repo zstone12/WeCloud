@@ -21,4 +21,5 @@ urlpatterns = [
     path('api/', include("api.urls")),
     path('sharefile/', include("sharefile.urls")),
     path('file/', include("file.urls"))
+    
 ]
