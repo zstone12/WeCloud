@@ -81,8 +81,8 @@ class UpFile(APIView):
         response = BaseResponse()
         try:
             type = request.data.get("type")
-            user_id = request.session['userid']
-            # user_id = request.data.get('user_id')
+            # user_id = request.session['userid']
+            user_id = request.data.get('user_id')
             filename = request.data.get("filename")
             file = request.FILES.getlist("file")
             for afile in file:
