@@ -77,7 +77,7 @@ class Reg(APIView):
         password = request.data.get('password')
         email = request.data.get('email')
         try:
-            obj = User.objects.create(username=username, password=md5(password), email=email)
+            obj = User.objects.create(username=username, password=md5(password), email=email,size=1024*1024*1024)
             response.msg = 'ok'
             response.code = 200
             response.data="null"
