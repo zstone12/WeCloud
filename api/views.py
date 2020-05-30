@@ -92,20 +92,24 @@ class Reg(APIView):
 
 
 class Login(APIView):
-     def post(self,request):
+      def post(self,request):
          response = BaseResponse()
-         username = request.data.get('username')
-         password = request.data.get('password')
-         user = User.objects.get(username=username, password=md5(password))
-         userid=user.user_id
-         print(user)
-         if user:
-             request.session['login'] = True
-             request.session['userid']=user.user_id
-          
-             response.msg = "ok"
-             response.data = "null"
-         else:
+         data=request.data
+         try:
+             username = data['data']['username']
+             password = data['data']['password']
+             user = User.objects.get(username=username, password=md5(password))
+             userid=user.user_id
+             if user:
+                 request.session['login'] = True
+                 request.session['userid']=user.user_id
+                 response.msg = "ok"
+                 response.data = "null"
+             else:
+                 response.msg = "no"
+                 response.code = 201
+                 response.data = "null"
+         except:
                  response.msg = "no"
                  response.code = 201
                  response.data = "null"
