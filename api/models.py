@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Md5(models.Model):
-    md5 = models.CharField(primary_key=True, null=False, max_length=200)
+    md5 = models.CharField(primary_key=True, max_length=200)
     filename = models.CharField(max_length=50, null=True)
 
     class Meta:
