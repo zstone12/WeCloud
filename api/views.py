@@ -7,7 +7,6 @@ from rest_framework.response import Response
 from api.serializers import  *
 from api.models import  *
 import hashlib
-import json
 from collections import OrderedDict
 def md5(str):
     m1 = hashlib.md5()
@@ -75,8 +74,6 @@ class Reg(APIView):
    def post(self,request):
         response = BaseResponse()
         data=request.data
-        data=data.replace("'", "\"")
-        data = json.loads(data)
         try:
             username=data['data']['username']
             password=data['data']['password']
