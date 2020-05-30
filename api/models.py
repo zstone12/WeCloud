@@ -20,10 +20,11 @@ class Img(models.Model):
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
-    date = models.DateField(max_length=20, null=True)
+    date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
+    
     class Meta:
         db_table = "img"
 
@@ -33,9 +34,9 @@ class Coffer(models.Model):
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
-    date = models.DateField(max_length=20, null=True)
+    date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -46,9 +47,9 @@ class Note(models.Model):
     file_id = models.AutoField(primary_key=True, null=False)
     title = models.CharField(max_length=255, null=True)
     content = models.CharField(max_length=255, null=True)
-    date = models.DateField(max_length=20, null=True)
+    date = models.DateField(max_length=50, null=True)
 
-    display = models.IntegerField(max_length=11, null=True)
+    # display = models.IntegerField(max_length=11, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -60,9 +61,9 @@ class Radio(models.Model):
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
-    date = models.DateField(max_length=20, null=True)
+    date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -74,9 +75,9 @@ class Trash(models.Model):
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
-    date = models.DateField(max_length=20, null=True)
+    date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -88,8 +89,8 @@ class Doc(models.Model):
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
-    date = models.DateField(max_length=20, null=True)
-
+    date = models.DateField(max_length=50, null=True)
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -101,11 +102,19 @@ class Video(models.Model):
     filename = models.CharField(max_length=255, null=True)
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
-    date = models.DateField(max_length=20, null=True)
+    date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:
         db_table = "video"
 
+ 
+
+class Md5(models.Model):
+    md5 = models.CharField(primary_key=True, null=False, max_length=200)
+    filename = models.CharField(max_length=50, null=True)
+
+    class Meta:
+        db_table = "md5"
 
