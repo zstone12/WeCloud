@@ -2,7 +2,12 @@ from django.db import models
 
 
 # Create your models here.
+class Md5(models.Model):
+    md5 = models.CharField(primary_key=True, null=False, max_length=200)
+    filename = models.CharField(max_length=50, null=True)
 
+    class Meta:
+        db_table = "md5"
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True, null=False)
@@ -109,12 +114,5 @@ class Video(models.Model):
     class Meta:
         db_table = "video"
 
- 
 
-class Md5(models.Model):
-    md5 = models.CharField(primary_key=True, null=False, max_length=200)
-    filename = models.CharField(max_length=50, null=True)
-
-    class Meta:
-        db_table = "md5"
 
