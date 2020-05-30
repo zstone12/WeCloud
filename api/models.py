@@ -28,7 +28,7 @@ class Img(models.Model):
     date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     
     class Meta:
         db_table = "img"
@@ -41,7 +41,7 @@ class Coffer(models.Model):
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -68,7 +68,7 @@ class Radio(models.Model):
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -82,7 +82,7 @@ class Trash(models.Model):
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -95,7 +95,7 @@ class Doc(models.Model):
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
-    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -109,7 +109,7 @@ class Video(models.Model):
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
     path = models.CharField(max_length=255, null=True)
-    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE)
+    md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:
         db_table = "video"
