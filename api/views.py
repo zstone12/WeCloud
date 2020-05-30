@@ -76,16 +76,16 @@ class Reg(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         email = request.data.get('email')
-        try:
-            obj = User.objects.create(username=username, password=md5(password), email=email,size=1024*1024*1024)
-            response.msg = 'ok'
-            response.code = 200
-            response.data="null"
-        except Exception as e:
-            print(e)
-            response.msg = 'no'
-            response.code = 201
-            response.data = "null"
+#         try:
+        obj = User.objects.create(username=username, password=md5(password), email=email,size=1024*1024*1024)
+        response.msg = 'ok'
+        response.code = 200
+        response.data="null"
+#         except Exception as e:
+#             print(e)
+#             response.msg = 'no'
+#             response.code = 201
+#             response.data = "null"
 
         return JsonResponse(response.dict)
 
@@ -101,6 +101,7 @@ class Login(APIView):
          if user:
              request.session['login'] = True
              request.session['userid']=user.user_id
+          
              response.msg = "ok"
              response.data = "null"
          else:
