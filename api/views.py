@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from api.serializers import  *
 from api.models import  *
 import hashlib
+import json
 from collections import OrderedDict
 def md5(str):
     m1 = hashlib.md5()
@@ -71,22 +72,25 @@ class CheckEmail(APIView):
 
 
 class Reg(APIView):
-    def post(self,request):
+   def post(self,request):
         response = BaseResponse()
-        username = request.data.get('username')
-        password = request.data.get('password')
-        email = request.data.get('email')
-#         try:
-        obj = User.objects.create(username=username, password=md5(password), email=email,size=1024*1024*1024)
-        response.msg = 'ok'
-        response.code = 200
-        response.data="null"
-#         except Exception as e:
-#             print(e)
-#             response.msg = 'no'
-#             response.code = 201
-#             response.data = "null"
-
+        data=request.data
+        data=data.replace("'", "\"")
+        data = json.loads(data)
+        try:
+            username=data['data']['username']
+            password=data['data']['password']
+            email = data['data']['email']
+            obj = User.objects.create(username=username, password=md5(password), email=email,size=1024*1024*1024)
+            obj.save()
+            response.msg = 'ok'
+            response.code = 200
+            response.data="null"
+        except Exception as e:
+            print(e)
+            response.msg = 'no'
+            response.code = 201
+            response.data = "null"
         return JsonResponse(response.dict)
 
 
