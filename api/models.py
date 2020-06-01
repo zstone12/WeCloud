@@ -26,7 +26,7 @@ class Img(models.Model):
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
-    path = models.CharField(max_length=255, null=True)
+    path = models.FileField(max_length=255, null=True,upload_to='img/')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     
@@ -53,7 +53,7 @@ class Note(models.Model):
     title = models.CharField(max_length=255, null=True)
     content = models.CharField(max_length=255, null=True)
     date = models.DateField(max_length=50, null=True)
-
+ 
     # display = models.IntegerField(max_length=11, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -67,7 +67,7 @@ class Radio(models.Model):
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
-    path = models.CharField(max_length=255, null=True)
+    path = models.FileField(max_length=255, null=True,upload_to='radio/')
     md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -95,6 +95,7 @@ class Doc(models.Model):
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
+    path = models.FileField(max_length=255, null=True, upload_to='doc/')
     md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -108,7 +109,7 @@ class Video(models.Model):
     type = models.CharField(max_length=20, null=True)
     size = models.BigIntegerField(max_length=11, null=True)
     date = models.DateField(max_length=50, null=True)
-    path = models.CharField(max_length=255, null=True)
+    path = models.FileField(max_length=255, null=True,upload_to='video/')
     md5 = models.ForeignKey(Md5, on_delete=models.CASCADE,default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:

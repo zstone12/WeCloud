@@ -9,8 +9,8 @@ urlpatterns = [
     path('reg',views.Reg.as_view()),
     path('login',views.Login.as_view()),
     path('isLog',views.IsLog.as_view()),
-    path('cheakPassword',views.CheckPassword.as_view()),
+    path('checkPassword',views.CheckPassword.as_view()),
     path('outLogin',views.OutLogin.as_view()),
-    path('getFile',views.GetFile.as_view())
+    #path('getfile',views.GetFile.as_view())
 
 ]

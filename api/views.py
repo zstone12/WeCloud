@@ -126,15 +126,9 @@ class IsLog(APIView):
             if login:
                 userid=request.session['userid']
                 user=User.objects.get(user_id=userid)
-                img_size = user.img_set.count()
-                radio_size= user.radio_set.count()
-                doc_size= user.doc_set.count()
-                video_size = user.video_set.count()
                 data={
-                    'img':img_size,
-                    'radio':radio_size,
-                    'doc_size':doc_size,
-                    'video_size':video_size
+                    "username":user.username,
+                    "size":1024*1024*1024-user.size
                 }
                 response.code="200"
                 response.msg="ok"
@@ -156,16 +150,14 @@ class IsLog(APIView):
 class OutLogin(APIView):
         def get(self,request):
             response = BaseResponse()
-            try:
-                del request.session['login']
-                del request.session['userid']
-                response.code = "200"
-                response.msg = "yes"
-                response.data = "null"
-            except KeyError:
-                response.code = "201"
-                response.msg = "no"
-                response.data = "null"
+            del request.session['login']
+            del request.session['userid']
+            response.code = "200"
+            response.msg = "yes"
+            response.data = "null"
+            #response.code = "201"
+                #response.msg = "no"
+               # response.data = "null"
             return JsonResponse(response.dict)
 
 
@@ -206,22 +198,27 @@ class GetFile(APIView):
                 if type=="img":
                     img_list=Img.objects.filter(user_id=userid)
                     img_list=ImgSerializer(img_list,many=True)
-                    data.append(img_list.data)
+                    for img in img_list.data:
+                        data.append(img)
+
                     response.data=data
                 elif type=="doc":
                     doc_list=Doc.objects.filter(user_id=userid)
                     doc_list=DocSerializer(doc_list,many=True)
-                    data.append(doc_list.data)
+                    for doc in doc_list.data:
+                        data.append(doc)
                     response.data=data
                 elif type=="radio":
                     radio_list=Radio.objects.filter(user_id=userid)
                     radio_list=RadioSerializer(radio_list,many=True)
-                    data.append(radio_list.data)
+                    for radio in radio_list.data:
+                        data.append(radio)
                     response.data=data
                 elif type=="video":
                     video_list=Video.objects.filter(user_id=userid)
                     video_list=VideoSerializer(video_list,many=True)
-                    data.append(video_list.data)
+                    for video in video_list.data:
+                        data.append(video)
                     response.data=data
                 elif type=="all":
                     img_list=Img.objects.filter(user_id=userid)
@@ -233,19 +230,30 @@ class GetFile(APIView):
                     doc_list=DocSerializer(doc_list,many=True)
                     radio_list=RadioSerializer(radio_list,many=True)
                     video_list=VideoSerializer(video_list,many=True)
-                    data.append(img_list.data)
-                    data.append(doc_list.data)
-                    data.append(radio_list.data)
-                    data.append(video_list.data)
+                    for img in img_list.data:
+                        data.append(img)
+
+                    for doc in doc_list.data:
+                        data.append(doc)
+                    for radio in radio_list.data:
+                        data.append(radio)
+                    for video in video_list.data:
+                        data.append(video)
                     if all=={}:
                         response.data = "null"
                     else:
                         response.data = data
+                elif type=="coffer":
+                    coffer_list = Coffer.objects.filter(user_id=userid)
+                    coffer_list = CofferSerializer(coffer_list, many=True)
 
+                    data = coffer_list.data
+                    response.data = data
                 elif type=="trash":
                     trash_list=Trash.objects.filter(user_id=userid)
                     trash_list=TrashSerializer(trash_list,many=True)
-                    data.append(trash_list.data)
+
+                    data=trash_list.data
                     response.data=data
                 response.code = "200"
                 response.msg = "ok"
@@ -350,7 +358,6 @@ class InsertNode:
                 response.code = "200"
                 response.msg = "yes"
                 response.data = data
-
             else:
                 title = request.POST.get("title")
                 content = request.POST.get("content")
